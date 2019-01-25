@@ -1,0 +1,360 @@
+<div className="row">
+                <div className="col-md-6">
+                    
+                        <div className="row"  style={{ 'height': '25%' }}>
+                            <div className="col-md-6">
+                                {/* <p className="card-title" style={{ 'fontSize': '12px' }}>SESSIONS</p> */}
+                                <h5 class="card-title" >SESSIONS</h5>
+                            </div>
+                        </div>
+                        <div className="row">
+                           
+                            <p class="card-title" style={{'textAlign':'center'}}>15</p>
+                            
+                        </div>
+                    
+                </div>
+                <div className="col-md-6">
+                    <div className="row">
+                        <p className="card-title" style={{ 'fontSize': '12px' }}>1 HOUR A GO</p>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <font size="3">15</font>
+                        </div>
+                        <div className="col-md-6">
+                            <font size="3" color="red">15.25%</font>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <p className="card-title" style={{ 'fontSize': '12px' }}>1 HOUR A GO</p>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <font size="3">15</font>
+                        </div>
+                        <div className="col-md-6">
+                            <font size="3" color="red">15.25%</font>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <p className="card-title" style={{ 'fontSize': '12px' }}>1 HOUR A GO</p>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <font size="3">15</font>
+                        </div>
+                        <div className="col-md-6">
+                            <font size="3" color="red">15.25%</font>
+                        </div>
+                    </div>
+                </div>
+                {/* <div className="col-md-6">
+                        <div class="card-body" style={{ 'textAlign': 'right' }}>
+                            <p class="card-title" style={{ 'fontSize': '12px' }}>1 HOUR A GO</p>
+                            <p>
+                                <font size="3">15</font> &nbsp; &nbsp;
+                                <font size="3" color="red">15.25%</font>
+                            </p>
+                            <br />
+                            <p class="card-title" style={{ 'fontSize': '12px' }}>1 DAY A GO</p>
+                            <p>
+                                <font size="3">15</font> &nbsp; &nbsp;
+                                <font size="3" color="red">15.25%</font>
+                            </p>
+                            <br />
+                            <p class="card-title" style={{ 'fontSize': '12px' }}>1 WEEK A GO</p>
+                            <p>
+                                <font size="3">15</font> &nbsp; &nbsp;
+                                <font size="3" color="red">15.25%</font>
+                            </p>
+                        </div>
+                    </div> */}
+
+                {/* 
+                <div className="row">
+                    <Response />
+                </div>
+            </div > */}
+            </div>
+
+
+
+
+
+            ----------------------------------------------------------------------------------
+
+            import React, { Component } from 'react';
+import DemoGraph from '/home/adeeth/Documents/dev-cognite/issue3/src/sub-components/graphs/demoGraph';
+import CardView from './CardView';
+import Response from './graphs/Response';
+
+class TableData extends Component {
+    constructor(props) {
+        super(props);
+    };
+
+    getToggleDataTarget(serviceName) {
+        serviceName = serviceName.replace(/[^A-Z0-9]/ig, "")
+        serviceName = "#".concat(serviceName)
+        return serviceName
+    }
+    getToggleID(serviceName) {
+        serviceName = serviceName.replace(/[^A-Z0-9]/ig, "")
+        return serviceName
+    }
+
+    getButtonType(status) {
+        var type;
+        if (status === 'critical') {
+            type = "btn btn-sm btn-danger btn-circle"
+        } else if (status === 'warning') {
+            type = "btn btn-sm btn-warning btn-circle"
+        } else if (status === 'success') {
+            type = "btn btn-xs btn-success btn-circle"
+        }
+        return type
+    }
+
+    getRowColor(status) {
+        var type;
+        if (status === 'critical') {
+            type = "table-danger"
+        }
+        return type
+    }
+
+    render() {
+        return (
+            <table className="table table-hover">
+                <thead style={{ 'backgroundColor': '#f5f2f2' }}>
+                    <tr>
+                        <th width='15%'>Service Name</th>
+                        <th width='15%'>Protocol</th>
+                        <th width='15%'>Uptime</th>
+                        <th width='15%'>Status</th>
+                        <th width='15%'>Heartbeat</th>
+                        <th width='25%'>Outages</th>
+                    </tr>
+                </thead>
+                {this.props.tableData.map(item => (
+                    <tbody key={item.serviceName}>
+                        <tr data-toggle="collapse" data-target={this.getToggleDataTarget(item.serviceName)} className="accordion-toggle" className={this.getRowColor(item.status)}>
+                            <td >{item.serviceName}</td>
+                            <td>{item.protocol}</td>
+                            <td>{item.uptime}</td>
+                            <td><button className={this.getButtonType(item.status)}></button></td>
+                            <td>{item.heartbeat}</td>
+                            <td><DemoGraph/></td>
+                        </tr>
+                        <tr className="hiddenRow">
+                            <td colSpan='12'>
+                                <div className="accordian-body collapse" id={this.getToggleID(item.serviceName)}>
+                                    <CardView />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                ))}
+            </table>
+        );
+    }
+}
+export default TableData;
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+ <div className="card-deck">
+        <div className="card" style={{ 'width': '300px', 'height': '400px' }}>
+          <div className style={{ 'margin': '5px' }}></div>
+          <h3 className="card-title" style={{ 'textAlign': 'center' }}> Service Performance</h3>
+          <div className style={{ 'margin': '-5px' }}></div>
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <ServicePef />
+              </div>
+              <div class="carousel-item">
+                <div className style={{ 'margin': '10px' }}></div>
+                <Slide2 />
+              </div>
+              {/* <div class="carousel-item">
+                <ServicePef />
+              </div> */}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+        </div>
+        <div className="card" style={{ 'width': '300px', 'height': '400px' }}>
+          <div className style={{ 'margin': '5px' }}></div>
+          <h3 className="card-title" style={{ 'textAlign': 'center' }}> Infrastructure Development</h3>
+          <div className style={{ 'margin': '-30px' }}></div>
+          <div className="card-body">
+            <InfDev />
+          </div>
+        </div>
+        <div className="card" style={{ 'width': '300px', 'height': '400px' }}>
+          <div className style={{ 'margin': '5px' }}></div>
+          <h3 className="card-title" style={{ 'textAlign': 'center' }}> Infrastructure Development</h3>
+          <div className style={{ 'margin': '-15px' }}></div>
+          <div className="card-body">
+            <img className="d-block w-100" height='321px' src={require('../media/map.png')} className="card-img-top" />
+            <p className="card-text"><br /><small className="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+
+
+      ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+      import React, { Component } from 'react';
+import ServicePef from './card-view/servicePerformance'
+import InfDev from './card-view/infDev'
+import InfDev2 from './card-view/InfDev2'
+import ServicePef2 from './card-view/ServPef2'
+import Map from '../sub-components/graphs/map'
+
+class CardView extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  getToggleDataTarget(appName) {
+    var n=0
+    if(appName!=""){
+      n=n++
+    }
+    appName = appName.replace(/[^A-Z0-9]/ig, "")
+    appName = "#".concat(appName).concat(n)
+    return appName
+}
+getToggleID(appName) {
+  var n=0
+  if(appName!=""){
+    n=n++
+  }
+    appName = appName.replace(/[^A-Z0-9]/ig, "")
+    appName = appName.concat(n)
+    return appName
+}
+  render() {
+    let num=this.props.data
+    console.log('num1:',num)
+    return (
+      <div className="card-deck">
+        <div className="card" style={{ 'width': '300px', 'height': '400px' }}>
+          <div className style={{ 'margin': '5px' }}></div>
+          <h3 className="card-title" style={{ 'textAlign': 'center' }}> Service Performance</h3>
+          <div className style={{ 'margin': '-5px' }}></div>
+          <div id={this.getToggleID(num.appName)} className="carousel slide" data-ride="carousel">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <ServicePef />
+                <div className="card-footer">
+                  <small className="text-muted">Last updated 3 mins ago</small>
+                </div>
+              </div>
+              <div className="carousel-item">
+                <div className style={{ 'margin': '10px' }}></div>
+                <ServicePef2 />
+                <div className="card-footer">
+                  <small className="text-muted">Last updated 4 mins ago</small>
+                </div>
+              </div>
+            </div>
+            <a className="carousel-control-prev" href={this.getToggleDataTarget(num.appName)} role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+            </a>
+            <a className="carousel-control-next" href={this.getToggleDataTarget(num.appName)} role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div className="card" style={{ 'width': '300px', 'height': '400px' }}>
+          <div className style={{ 'margin': '5px' }}></div>
+          <h3 className="card-title" style={{ 'textAlign': 'center' }}> Service Performance</h3>
+          <div className style={{ 'margin': '-20px' }}></div>
+          <div id={this.getToggleID(num.appName)} className="carousel slide" data-ride="carousel">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <InfDev data={this.props.data}/>
+                <div className style={{ 'margin': '-22px' }}></div>
+                <div className="card-footer">
+                  <small className="text-muted">Last updated 3 mins ago</small>
+                </div>
+              </div>
+              <div className="carousel-item">
+                <div className style={{ 'margin': '-5px' }}></div>
+                <InfDev2 data={this.props.data} />
+                <div className style={{ 'margin': '-20px' }}></div>
+                <div className="card-footer">
+                  <small className="text-muted">Last updated 4 mins ago</small>
+                </div>
+              </div>
+            </div>
+            <a className="carousel-control-prev" href={this.getToggleDataTarget(num.appName)} role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+            </a>
+            <a className="carousel-control-next" href={this.getToggleDataTarget(num.appName)} role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div className="card" style={{ 'width': '300px', 'height': '400px' }}>
+          <div className style={{ 'margin': '5px' }}></div>
+          <h3 className="card-title" style={{ 'textAlign': 'center' }}> Service Performance</h3>
+          <div className style={{ 'margin': '-5px' }}></div>
+          <div id={this.getToggleID(num.appName)} className="carousel slide" data-ride="carousel">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <ServicePef />
+                <div className="card-footer">
+                  <small className="text-muted">Last updated 3 mins ago</small>
+                </div>
+              </div>
+              <div className="carousel-item">
+                <div className style={{ 'margin': '-105px' }}></div>
+                <ServicePef2/>
+                <div className="card-footer">
+                  <small className="text-muted">Last updated 3 mins ago</small>
+                </div>
+              </div>
+            </div>
+            <a className="carousel-control-prev" href={this.getToggleDataTarget(num.appName)} role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+            </a>
+            <a className="carousel-control-next" href={this.getToggleDataTarget(num.appName)} role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+export default CardView;
